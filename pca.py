@@ -5,11 +5,13 @@ from sklearn.decomposition import PCA
 import plotly.graph_objects as go
 
 # Título de la aplicación
-st.title("Gráfico PCA")
+st.title("Gráfico PCA Interactivo con Vectores Seleccionables")
 
 # Cargar los datos desde el archivo Excel
 file_path = "PCA.xlsx"  # Asegúrate de que el archivo esté presente en el repositorio
+
 try:
+    # Leer el archivo Excel
     data = pd.read_excel(file_path)
 
     # Establecer 'sample-id' como el índice del DataFrame
@@ -42,6 +44,7 @@ try:
         textfont=dict(size=8),
         name='Samples'
     ))
+
     # Lista de variables a filtrar
     variables_to_keep = [
         'pH',
@@ -84,7 +87,7 @@ try:
         'Methanimicrococcus',
         'Methanofollis'
     ]
-  
+
     # Filtrar las variables a mantener
     filtered_columns = [col for col in data.columns if col in variables_to_keep]
 
@@ -104,7 +107,7 @@ try:
         "S input per day": "S input"
     }
 
-    # Agregar los vectores de carga (loadings) con leyenda seleccionable
+    # Agregar los vectores de carga (loadings) con leyenda seleccionable y etiquetas
     for i, variable in enumerate(filtered_columns):
         vector = loadings_scaled[data.columns.get_loc(variable), :]  # Obtener el vector escalado
 
@@ -132,6 +135,18 @@ try:
             showlegend=False
         ))
 
+        # Añadir el nombre del vector en la punta
+        fig.add_trace(go.Scatter3d(
+            x=[vector[0]],
+            y=[vector[1]],
+            z=[vector[2]],
+            mode='text',
+            text=[label_mapping.get(variable, variable)],  # Usar el nombre mapeado o el original
+            textposition='top left',
+            textfont=dict(size=8),
+            showlegend=False
+        ))
+
     # Personalizar las etiquetas de los ejes con la varianza explicada
     fig.update_layout(scene=dict(
         xaxis_title=f'PC1 ({pca.explained_variance_ratio_[0]:.2%})',
@@ -144,3 +159,4 @@ try:
 
 except FileNotFoundError:
     st.error(f"El archivo '{file_path}' no se encontró. Por favor, súbelo al repositorio.")
+
