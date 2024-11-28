@@ -8,7 +8,7 @@ from sklearn.decomposition import PCA
 import plotly.graph_objects as go
 
 # Cargar los datos desde un archivo Excel
-file_path = "PCA.XLSX"  # Asegúrate de cargar este archivo en tu repositorio
+file_path = "PCA.xlsx"  # Asegúrate de cargar este archivo en tu repositorio
 data = pd.read_excel(file_path)
 
 # Establecer 'sample-id' como el índice del DataFrame
