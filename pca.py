@@ -119,7 +119,7 @@ try:
             mode='lines',
             line=dict(color='purple', width=1.5),
             name=label_mapping.get(variable, variable),  # Usar el nombre mapeado o el original
-            legendgroup=variable,
+            legendgroup=variable,  # Usar el mismo grupo para líneas y texto
             showlegend=True
         ))
 
@@ -131,7 +131,7 @@ try:
             mode='markers',
             marker=dict(size=3, color='purple', symbol='circle', opacity=0.8),
             name=label_mapping.get(variable, variable),  # Usar el nombre mapeado o el original
-            legendgroup=variable,
+            legendgroup=variable,  # Usar el mismo grupo para líneas y texto
             showlegend=False
         ))
 
@@ -144,6 +144,7 @@ try:
             text=[label_mapping.get(variable, variable)],  # Usar el nombre mapeado o el original
             textposition='top left',
             textfont=dict(size=8),
+            legendgroup=variable,  # Usar el mismo grupo para líneas y texto
             showlegend=False
         ))
 
@@ -159,4 +160,5 @@ try:
 
 except FileNotFoundError:
     st.error(f"El archivo '{file_path}' no se encontró. Por favor, súbelo al repositorio.")
+
 
