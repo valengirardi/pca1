@@ -143,7 +143,7 @@ try:
             mode='text',
             text=[label_mapping.get(variable, variable)],  # Usar el nombre mapeado o el original
             textposition='top left',
-            textfont=dict(size=8),
+            textfont=dict(size=10),
             legendgroup=variable,  # Usar el mismo grupo para líneas y texto
             showlegend=False
         ))
