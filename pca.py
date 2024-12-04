@@ -29,6 +29,20 @@ try:
     projected_df = pd.DataFrame(data=projected_data, columns=[f'PC{i}' for i in range(1, 4)])
     projected_df['type-of-reactor'] = data.index
 
+    # Definir colores específicos para ciertos puntos
+    custom_colors = {
+        "R3-1": "#ffbf50",
+        "R3-2": "#c7519c",
+        "R3-3": "#bcbd22",
+        "R1": "#1283b2"
+    }
+
+    # Crear una lista de colores basada en el tipo de reactor
+    colors = [
+        custom_colors.get(row['type-of-reactor'], '#cccccc')  # Color por defecto gris si no está en el diccionario
+        for _, row in projected_df.iterrows()
+    ]
+
     # Crear un objeto go.Figure
     fig = go.Figure()
 
@@ -38,10 +52,10 @@ try:
         y=projected_df['PC2'],
         z=projected_df['PC3'],
         mode='markers+text',
-        marker=dict(size=4, color=projected_df['PC1'], opacity=0.8),
+        marker=dict(size=5, color=colors, opacity=0.8),
         text=projected_df['type-of-reactor'],
         textposition='top center',
-        textfont=dict(size=8),
+        textfont=dict(size=10, color=colors),  # Aplicar los mismos colores a las etiquetas
         name='Samples'
     ))
 
@@ -95,12 +109,12 @@ try:
 
     # Diccionario para renombrar las etiquetas (opcional)
     label_mapping = {
-        "Amount of Fe (instantáneo)": "Iron added",
-        "Sulfide concentration": "S²⁻ concentration",
-        "Sulfate concentration ": "SO₄²⁻ concentration",
-        "Hydrogen sulfide concentration": "H₂S concentration",
-        "Methane in biogas (%)": "CH₄ in biogas",
-        "Carbon dioxide in biogas (%)": "CO₂ in biogas",
+        "Amount of Fe (instantáneo)": "Fe³⁺ addition",
+        "Sulfide concentration": "H₂Sliq/HS⁻liq",
+        "Sulfate concentration ": "SO₄²⁻",
+        "Hydrogen sulfide concentration": "H₂Sg",
+        "Methane in biogas (%)": "CH₄",
+        "Carbon dioxide in biogas (%)": "CO₂",
         "S input per day": "S input"
     }
 
@@ -126,21 +140,21 @@ try:
             y=[vector[1]],
             z=[vector[2]],
             mode='markers',
-            marker=dict(size=3, color='purple', symbol='circle', opacity=0.8),
+            marker=dict(size=2, color='purple', symbol='circle', opacity=0.8),
             name=label_mapping.get(variable, variable),  # Usar el nombre mapeado o el original
             legendgroup=variable,  # Usar el mismo grupo para líneas y texto
             showlegend=False
         ))
 
-        # Añadir el nombre del vector en la punta
+        # Añadir el nombre del vector con un ligero desplazamiento
         fig.add_trace(go.Scatter3d(
-            x=[vector[0]],
+            x=[vector[0]],  
             y=[vector[1]],
             z=[vector[2]],
             mode='text',
             text=[label_mapping.get(variable, variable)],  # Usar el nombre mapeado o el original
             textposition='top left',
-            textfont=dict(size=10),
+            textfont=dict(size=8, color='purple'),
             legendgroup=variable,  # Usar el mismo grupo para líneas y texto
             showlegend=False
         ))
