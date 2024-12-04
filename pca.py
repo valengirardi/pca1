@@ -62,7 +62,6 @@ try:
         'Sporanaerobacter',
         'Syntrophomonas',
         'Syner-01',
-        'Bacteroidetes_vadinHA17',
         'Christensenellaceae_R-7_group',
         'EBM-39',
         'Sphaerochaeta',
@@ -71,7 +70,6 @@ try:
         'Pseudoramibacter',
         'Dethiosulfovibrio',
         'SEEP-SRB1',
-        'Uncultured (Family: Desulfobacteraceae)',
         'Desulfobulbus',
         'Desulfobotulus',
         'Desulfomicrobium',
@@ -85,7 +83,6 @@ try:
         'Methanocalculus',
         'RumEn_M2',
         'Methanimicrococcus',
-        'Methanofollis'
     ]
 
     # Filtrar las variables a mantener
