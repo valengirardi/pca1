@@ -70,7 +70,6 @@ try:
         'Methane in biogas (%)',
         'Carbon dioxide in biogas (%)',
         'Biogas volume',
-        'Uncultured (Family: Eubacteriaceae)',
         'Uncultured (Family: Anaerolineaceae)',
         'Aminobacterium',
         'Sporanaerobacter',
